@@ -14,10 +14,17 @@ import { FAQs } from './collections/FAQs'
 import { TicketTypes } from './collections/TicketTypes'
 import { Bookings } from './collections/Bookings'
 import { ContactSubmissions } from './collections/ContactSubmissions'
+import { Products } from './collections/Products'
+import { ProductCategories } from './collections/ProductCategories'
+import { Orders } from './collections/Orders'
+import { GiftVouchers } from './collections/GiftVouchers'
+import { Adoptions } from './collections/Adoptions'
+import { AdoptionTiers } from './collections/AdoptionTiers'
 
 import { SiteSettings } from './globals/SiteSettings'
 import { OpeningHours } from './globals/OpeningHours'
 import { Homepage } from './globals/Homepage'
+import { ShopSettings } from './globals/ShopSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,11 +48,18 @@ export default buildConfig({
     TicketTypes,
     Bookings,
     ContactSubmissions,
+    Products,
+    ProductCategories,
+    Orders,
+    GiftVouchers,
+    Adoptions,
+    AdoptionTiers,
   ],
   globals: [
     SiteSettings,
     OpeningHours,
     Homepage,
+    ShopSettings,
   ],
   db: postgresAdapter({
     pool: {
@@ -60,7 +74,7 @@ export default buildConfig({
   },
   plugins: [
     seoPlugin({
-      collections: ['events'],
+      collections: ['events', 'products'],
       globals: ['homepage'],
       uploadsCollection: 'media',
       generateTitle: ({ doc }: any) => `${doc?.title || 'Rutland Farm Park'} | Rutland Farm Park`,

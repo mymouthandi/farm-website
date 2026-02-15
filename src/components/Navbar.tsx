@@ -3,13 +3,14 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Menu, X, Tractor } from 'lucide-react'
+import { CartButton } from '@/components/cart/CartDrawer'
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/visit', label: 'Visit' },
   { href: '/animals', label: 'Our Animals' },
   { href: '/events', label: 'Events' },
-  { href: '/faq', label: 'FAQ' },
+  { href: '/shop', label: 'Shop' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -42,6 +43,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <CartButton />
             <Link
               href="/booking"
               className="ml-2 px-4 py-2 rounded-lg bg-farm-green text-white text-sm font-semibold hover:bg-farm-green-dark transition-colors shadow-sm"
@@ -50,14 +52,17 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Mobile cart + menu */}
+          <div className="md:hidden flex items-center gap-1">
+            <CartButton />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile nav */}

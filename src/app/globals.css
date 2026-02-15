@@ -18,14 +18,18 @@
   html {
     scroll-behavior: smooth;
   }
+}
 
-  body {
-    font-family: var(--font-sans);
-    color: #1a1a2e;
-    background-color: #fafaf7;
-  }
+/* Scoped to frontend only — keeps Payload admin panel unaffected */
+.frontend-shell {
+  font-family: var(--font-sans);
+  color: #1a1a2e;
+  background-color: #fafaf7;
+}
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-  }
+.frontend-shell h1,
+.frontend-shell h2,
+.frontend-shell h3,
+.frontend-shell h4 {
+  font-family: var(--font-display);
 }

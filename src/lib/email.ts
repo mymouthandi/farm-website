@@ -1,6 +1,17 @@
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
-const resend = new Resend(process.env.RESEND_API_KEY || '')
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER || '',
+    pass: process.env.SMTP_PASS || '',
+  },
+})
+
+const emailFrom = process.env.EMAIL_FROM || 'Rutland Farm Park <bookings@rutlandfarmpark.co.uk>'
+const notificationTo = process.env.EMAIL_NOTIFICATION_TO || 'info@rutlandfarmpark.com'
 
 interface BookingConfirmationEmail {
   customerName: string
@@ -99,8 +110,8 @@ export async function sendBookingConfirmation({
   `
 
   try {
-    await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'Rutland Farm Park <bookings@rutlandfarmpark.co.uk>',
+    await transporter.sendMail({
+      from: emailFrom,
       to: customerEmail,
       subject: `Booking Confirmation - ${bookingReference}`,
       html,
@@ -135,9 +146,9 @@ export async function sendContactNotification({
   `
 
   try {
-    await resend.emails.send({
-      from: process.env.EMAIL_FROM || 'Rutland Farm Park <noreply@rutlandfarmpark.co.uk>',
-      to: 'info@rutlandfarmpark.com',
+    await transporter.sendMail({
+      from: emailFrom,
+      to: notificationTo,
       subject: `Contact Form: ${name}`,
       html,
       replyTo: email,

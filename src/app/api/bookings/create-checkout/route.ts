@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
           status: 'pending',
         },
       })
-      bookingId = booking.id as string
+      bookingId = String(booking.id)
     } catch (dbError) {
       console.error('Failed to create booking record:', dbError)
       return NextResponse.json(
